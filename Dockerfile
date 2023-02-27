@@ -44,9 +44,11 @@ RUN apt-get update 									\
     && pyenv install ${python_version} 				\
     && pyenv global ${python_version} 				
 
-COPY . .
+COPY requirements/ requirements/
 
 RUN pip install --no-cache-dir -r "requirements/${requirements_dependencies}.txt"
+
+COPY . .
 
 ENTRYPOINT python main.py
 
