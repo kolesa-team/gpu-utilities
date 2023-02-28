@@ -36,6 +36,7 @@ class TorchGPUInfoObtainer(GPUInfoObtainer):
         name = torch.cuda.get_device_name(device_id)
         memory_usage = torch.cuda.mem_get_info(device_id)
         gpu = GPU(
+            cuda_id=device_id,
             name=name,
             max_available_memory_bytes=memory_usage[1],
             current_memory_utlization_bytes=memory_usage[1] - memory_usage[0],
