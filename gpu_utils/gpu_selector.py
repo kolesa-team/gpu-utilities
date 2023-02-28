@@ -28,7 +28,7 @@ class BestFitGPUSelector(GPUSelector):
 
     def select(
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
-    ) -> Optional[GPU]:
+    ) -> GPU:
         if len(gpus) == 0:
             raise Exception("Empty list of gpus provided")
 
@@ -38,7 +38,7 @@ class BestFitGPUSelector(GPUSelector):
             > expected_memory_consumption_bytes,
         )
         if len(available) == 0:
-            return None
+            raise Exception("No available GPU found")
 
         sorted = sort_by(
             available, lambda gpu: gpu.free_memory_bytes(), reverse=False
@@ -52,7 +52,7 @@ class WorstFitGPUSelector(GPUSelector):
 
     def select(
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
-    ) -> Optional[GPU]:
+    ) -> GPU:
         if len(gpus) == 0:
             raise Exception("Empty list of gpus provided")
 
@@ -62,7 +62,7 @@ class WorstFitGPUSelector(GPUSelector):
             > expected_memory_consumption_bytes,
         )
         if len(available) == 0:
-            return None
+            raise Exception("No available GPU found")
 
         sorted = sort_by(
             available, lambda gpu: gpu.free_memory_bytes(), reverse=True
@@ -76,7 +76,7 @@ class RandomGPUSelector(GPUSelector):
 
     def select(
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
-    ) -> Optional[GPU]:
+    ) -> GPU:
         if len(gpus) == 0:
             raise Exception("Empty list of gpus provided")
 
@@ -86,9 +86,9 @@ class RandomGPUSelector(GPUSelector):
             > expected_memory_consumption_bytes,
         )
         if len(available) == 0:
-            return None
+            raise Exception("No available GPU found")
 
-        id = random.randrange(0, len(available))
+        id = random.randrange(0, len(available))  # type: ignore
         return available[id]
 
 

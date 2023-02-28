@@ -21,7 +21,7 @@ class TorchGPUInfoObtainer(GPUInfoObtainer):
         return torch.cuda.is_available()
 
     def gpus(self) -> List[GPU]:
-        if not self.gpus_available:
+        if not self.gpus_available:  # type: ignore
             return []
 
         gpu_count = torch.cuda.device_count()

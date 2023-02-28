@@ -3,6 +3,7 @@ pyrightconfig.json
 **/.DS_Store
 **/*.log
 **/__pycache__/
+**/.mypy_cache
 
 .git/
 .hooks/

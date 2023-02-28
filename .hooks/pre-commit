@@ -1,3 +1,4 @@
 make format
 make requirements
-
+make tests
+make type-checking
