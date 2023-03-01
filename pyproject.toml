@@ -6,7 +6,7 @@ authors = [
 ]
 description = "Small utility library for gpu selection"
 requires-python = ">=3.7"
-keywords="gpu"
+keywords=["gpu"]
 dependencies = [
 	"torch>=1.13.1",
 	"pydash>=6.0.2",

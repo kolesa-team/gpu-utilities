@@ -37,7 +37,7 @@ class BestFitGPUSelector(GPUSelector):
             lambda gpu: gpu.free_memory_bytes()
             > expected_memory_consumption_bytes,
         )
-        if len(available) == 0:
+        if not available:
             raise Exception("No available GPU found")
 
         sorted = sort_by(
@@ -61,7 +61,7 @@ class WorstFitGPUSelector(GPUSelector):
             lambda gpu: gpu.free_memory_bytes()
             > expected_memory_consumption_bytes,
         )
-        if len(available) == 0:
+        if not available:
             raise Exception("No available GPU found")
 
         sorted = sort_by(
@@ -85,7 +85,7 @@ class RandomGPUSelector(GPUSelector):
             lambda gpu: gpu.free_memory_bytes()
             > expected_memory_consumption_bytes,
         )
-        if len(available) == 0:
+        if not available:
             raise Exception("No available GPU found")
 
         id = random.randrange(0, len(available))  # type: ignore
