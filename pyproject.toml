@@ -1,0 +1,14 @@
+[project]
+name = "gpu-utils"
+version = "0.1.0"
+authors = [
+	{ name = "Khambar Dussaliyev", email = "dussaliyev@kolesa.kz"},
+]
+description = "Small utility library for gpu selection"
+requires-python = ">=3.7"
+keywords="gpu"
+dependencies = [
+	"torch>=1.13.1",
+	"pydash>=6.0.2",
+]
+
