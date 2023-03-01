@@ -4,3 +4,6 @@ pyrightconfig.json
 **/*.log
 **/__pycache__/
 **/.mypy_cache
+
+.git/
+.hooks/
