@@ -9,6 +9,5 @@ requires-python = ">=3.7"
 keywords=["gpu"]
 dependencies = [
 	"torch>=1.13.1",
-	"pydash>=6.0.2",
 ]
 

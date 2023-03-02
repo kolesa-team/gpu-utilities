@@ -1,10 +1,8 @@
 from abc import ABC, abstractmethod
 from enum import Enum, auto
-from random import random
 from typing import List, Optional
-
-from pydash import filter_, sort_by
-
+import random
+from gpu_utils.errors import NoGPUAvailableError, EmptyGPUListError
 from gpu_utils.gpu import GPU
 
 
@@ -30,20 +28,23 @@ class BestFitGPUSelector(GPUSelector):
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
     ) -> GPU:
         if len(gpus) == 0:
-            raise Exception("Empty list of gpus provided")
+            raise EmptyGPUListError()
 
-        available = filter_(
-            gpus,
-            lambda gpu: gpu.free_memory_bytes()
-            > expected_memory_consumption_bytes,
+        available = list(
+            filter(
+                lambda gpu: gpu.free_memory_bytes()
+                > expected_memory_consumption_bytes,
+                gpus,
+            )
         )
+
         if not available:
-            raise Exception("No available GPU found")
+            raise NoGPUAvailableError()
 
-        sorted = sort_by(
-            available, lambda gpu: gpu.free_memory_bytes(), reverse=False
+        sorted_gpus = sorted(
+            available, key=lambda gpu: gpu.free_memory_bytes(), reverse=False
         )
-        return sorted[0]
+        return sorted_gpus[0]
 
 
 class WorstFitGPUSelector(GPUSelector):
@@ -54,20 +55,23 @@ class WorstFitGPUSelector(GPUSelector):
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
     ) -> GPU:
         if len(gpus) == 0:
-            raise Exception("Empty list of gpus provided")
+            raise EmptyGPUListError()
 
-        available = filter_(
-            gpus,
-            lambda gpu: gpu.free_memory_bytes()
-            > expected_memory_consumption_bytes,
+        available = list(
+            filter(
+                lambda gpu: gpu.free_memory_bytes()
+                > expected_memory_consumption_bytes,
+                gpus,
+            )
         )
-        if not available:
-            raise Exception("No available GPU found")
 
-        sorted = sort_by(
-            available, lambda gpu: gpu.free_memory_bytes(), reverse=True
+        if len(available) == 0:
+            raise NoGPUAvailableError()
+
+        sorted_gpus = sorted(
+            available, key=lambda gpu: gpu.free_memory_bytes(), reverse=True
         )
-        return sorted[0]
+        return sorted_gpus[0]
 
 
 class RandomGPUSelector(GPUSelector):
@@ -78,15 +82,18 @@ class RandomGPUSelector(GPUSelector):
         self, gpus: List[GPU], expected_memory_consumption_bytes: int
     ) -> GPU:
         if len(gpus) == 0:
-            raise Exception("Empty list of gpus provided")
+            raise EmptyGPUListError()
 
-        available = filter_(
-            gpus,
-            lambda gpu: gpu.free_memory_bytes()
-            > expected_memory_consumption_bytes,
+        available = list(
+            filter(
+                lambda gpu: gpu.free_memory_bytes()
+                > expected_memory_consumption_bytes,
+                gpus,
+            )
         )
+
         if not available:
-            raise Exception("No available GPU found")
+            raise NoGPUAvailableError()
 
         id = random.randrange(0, len(available))  # type: ignore
         return available[id]

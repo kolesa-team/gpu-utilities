@@ -1,4 +1,5 @@
 import pytest
+from gpu_utils.errors import EmptyGPUListError, NoGPUAvailableError
 from gpu_utils.gpu import GPU
 from gpu_utils.gpu_selector import (
     BestFitGPUSelector,
@@ -42,7 +43,7 @@ class TestBestFitGPUSelector:
     def test_select_empty_gpus_list(self):
         gpu_selector = BestFitGPUSelector()
         gpus = []
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(EmptyGPUListError) as exc_info:
             gpu_selector.select(gpus, 2000)
             assert exc_info.value == "Empty list of gpus provided"
 
@@ -63,7 +64,7 @@ class TestBestFitGPUSelector:
             ),
         ]
 
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(NoGPUAvailableError) as exc_info:
             gpu_selector.select(gpus, 4000)
             assert exc_info.value == "No available GPU found"
 
@@ -101,7 +102,7 @@ class TestWorstFitGPUSelector:
     def test_select_empty_gpus_list(self):
         gpu_selector = WorstFitGPUSelector()
         gpus = []
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(EmptyGPUListError) as exc_info:
             gpu_selector.select(gpus, 2000)
             assert exc_info.value == "Empty list of gpus provided"
 
@@ -121,14 +122,14 @@ class TestWorstFitGPUSelector:
                 current_memory_utlization_bytes=11000,
             ),
         ]
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(NoGPUAvailableError) as exc_info:
             gpu_selector.select(gpus, 4000)
             assert exc_info.value == "No available GPU found"
 
 
 class TestRandomGPUSelector:
     def test_select_valid(self):
-        gpu_selector = WorstFitGPUSelector()
+        gpu_selector = RandomGPUSelector()
         gpu_1 = GPU(
             0,
             "Geforce 3060",
@@ -159,7 +160,7 @@ class TestRandomGPUSelector:
     def test_select_empty_gpus_list(self):
         gpu_selector = RandomGPUSelector()
         gpus = []
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(EmptyGPUListError) as exc_info:
             gpu_selector.select(gpus, 2000)
             assert exc_info.value == "Empty list of gpus provided"
 
@@ -179,7 +180,7 @@ class TestRandomGPUSelector:
                 current_memory_utlization_bytes=11000,
             ),
         ]
-        with pytest.raises(Exception) as exc_info:
+        with pytest.raises(NoGPUAvailableError) as exc_info:
             gpu_selector.select(gpus, 4000)
             assert exc_info.value == "No available GPU found"
 
