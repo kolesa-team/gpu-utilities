@@ -1,3 +1,2 @@
 pydash==6.0.2
 pytest==7.2.1
-torch==1.13.1
