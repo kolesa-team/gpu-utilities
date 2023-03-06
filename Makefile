@@ -1,8 +1,5 @@
 .PHONY: tests requirements
 
-HOST ?= ***REMOVED***
-IMAGE_NAME ?= gpu-utils
-
 env:
 	export PYTHONPATH="$PYTHONPATH:$(PWD)"
 

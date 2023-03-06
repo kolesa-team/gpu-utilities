@@ -14,12 +14,6 @@
 ## Пример использования
 
 ### Установка
-```shell
-pip install ***REMOVED***
-```
-
-> Используя hash коммита, можно завязаться и на конкретный коммит `pip install ***REMOVED***@79ab5cde424b65f355418d8cb2cd74a0cc52ba77`
-
 ```python
 from gpu_utils.gpu_info_obtainer import TorchGPUInfoObtainer
 from gpu_utils.gpu_selector import GPUSelectorFactory, GPUSelectStrategy
