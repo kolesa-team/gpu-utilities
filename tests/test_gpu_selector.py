@@ -1,7 +1,7 @@
 import pytest
-from gpu_utils.errors import EmptyGPUListError, NoGPUAvailableError
-from gpu_utils.gpu import GPU
-from gpu_utils.gpu_selector import (
+from gpu_utilities.errors import EmptyGPUListError, NoGPUAvailableError
+from gpu_utilities.gpu import GPU
+from gpu_utilities.gpu_selector import (
     BestFitGPUSelector,
     GPUSelectorFactory,
     RandomGPUSelector,

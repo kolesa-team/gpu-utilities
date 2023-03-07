@@ -3,7 +3,7 @@ from typing import List
 
 import torch
 
-from gpu_utils.gpu import GPU
+from gpu_utilities.gpu import GPU
 
 
 class GPUInfoObtainer(ABC):

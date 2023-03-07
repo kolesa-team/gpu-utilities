@@ -1,4 +1,4 @@
-.PHONY: tests requirements
+.PHONY: tests requirements dist
 
 env:
 	export PYTHONPATH="$PYTHONPATH:$(PWD)"
@@ -31,3 +31,19 @@ run-tests: build
 
 run-shell: build
 	docker -H $(HOST) run --entrypoint /bin/bash --rm -it --gpus all $(IMAGE_NAME)
+
+dist:
+	python3 -m pip install --upgrade build
+	python3 -m build
+
+publish-test: dist 
+	python3 -m pip install --upgrade twine
+	python3 -m twine upload --repository testpypi dist/* --verbose
+
+publish: dist
+	python3 -m pip install --upgrade twine
+	python3 -m twine upload dist/* --verbose
+
+clean:
+	pip install --upgrade cleanpy
+	cleanpy --all .

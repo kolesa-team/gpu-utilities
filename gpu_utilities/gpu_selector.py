@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from enum import Enum, auto
 from typing import List, Optional
 import random
-from gpu_utils.errors import NoGPUAvailableError, EmptyGPUListError
-from gpu_utils.gpu import GPU
+from gpu_utilities.errors import NoGPUAvailableError, EmptyGPUListError
+from gpu_utilities.gpu import GPU
 
 
 class GPUSelectStrategy(Enum):

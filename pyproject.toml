@@ -1,5 +1,5 @@
 [project]
-name = "gpu-utils"
+name = "gpu_utilities"
 version = "0.1.0"
 authors = [
 	{ name = "Khambar Dussaliyev", email = "dussaliyev@kolesa.kz"},
@@ -10,4 +10,10 @@ keywords=["gpu"]
 dependencies = [
 	"torch>=1.13.1",
 ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
 
+[project.urls]
+"Repository" = "https://github.com/kolesa-team/gpu_utils"

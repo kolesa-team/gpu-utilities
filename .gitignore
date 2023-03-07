@@ -7,3 +7,4 @@ pyrightconfig.json
 **/.mypy_cache
 *.egg-info
 build/
+dist/

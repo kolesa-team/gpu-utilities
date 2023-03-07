@@ -1,5 +1,5 @@
 import logging
-from gpu_utils.gpu_info_obtainer import TorchGPUInfoObtainer
+from gpu_utilities.gpu_info_obtainer import TorchGPUInfoObtainer
 
 
 def test_TorchGPUInfoObtainer_gpus():
