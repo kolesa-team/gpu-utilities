@@ -15,8 +15,8 @@
 
 ### Установка
 ```python
-from gpu_utils.gpu_info_obtainer import TorchGPUInfoObtainer
-from gpu_utils.gpu_selector import GPUSelectorFactory, GPUSelectStrategy
+from gpu_utilities.gpu_info_obtainer import TorchGPUInfoObtainer
+from gpu_utilites.gpu_selector import GPUSelectorFactory, GPUSelectStrategy
 import torch
 
 if __name__ == "__main__":
