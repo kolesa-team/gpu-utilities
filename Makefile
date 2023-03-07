@@ -7,7 +7,7 @@ format:
 	black -l 79 . --preview
 
 type-checking:
-	mypy --ignore-missing-imports gpu_utils 
+	mypy --ignore-missing-imports gpu_utilities
 
 hooks:
 	git config core.hooksPath .hooks/
