@@ -31,7 +31,7 @@ if __name__ == "__main__":
     gpu = selector.select(gpu_info_obtainer.gpus(), 800 * 1024 * 1024)  # Выбираем карту из возможных, чтобы на ней поместилось 800 MB, согласно стратегии
     print(f"gpu {gpu} is the best option now!")
 
-    torch.cuda.device(gpu.to_torch_device)  # Пример последующей установки в качестве текущего устройства CUDA
+    torch.cuda.device(gpu.to_torch_device())  # Пример последующей установки в качестве текущего устройства CUDA
 ```
 
 ### Доступные стратегии
