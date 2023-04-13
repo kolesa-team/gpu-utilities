@@ -12,4 +12,3 @@ class GPUInfoObtainer(ABC):
     @abstractmethod
     def gpus(self) -> List[GPU]:
         pass
-
