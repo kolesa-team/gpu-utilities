@@ -1,5 +1,6 @@
 black>=23.1.0
 torch>=1.13.1
+pynvml>=11.5.0
 pytest>=7.2.1
 pydash>=6.0.2
 mypy>=1.0.1

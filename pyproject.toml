@@ -8,8 +8,13 @@ description = "Small utility library for gpu selection"
 requires-python = ">=3.7"
 keywords=["gpu"]
 dependencies = [
-	"torch>=1.13.1",
 ]
+
+optional-dependencies = [
+	"torch>=1.13.1",
+	"pynvml>=11.5.0"
+]
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
