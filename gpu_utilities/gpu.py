@@ -5,11 +5,13 @@ class GPU:
         name: str,
         max_available_memory_bytes: int,
         current_memory_utlization_bytes: int,
+        uuid: str = "",
     ) -> None:
         self.cuda_id = cuda_id
         self.name = name
         self.max_available_memory_bytes = max_available_memory_bytes
         self.current_memory_utlization_bytes = current_memory_utlization_bytes
+        self.uuid = uuid
 
     def __repr__(self) -> str:
         return str(self.__dict__)

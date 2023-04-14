@@ -1,6 +1,6 @@
 [project]
 name = "gpu_utilities"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
 	{ name = "Khambar Dussaliyev", email = "dussaliyev@kolesa.kz"},
 ]
@@ -8,8 +8,9 @@ description = "Small utility library for gpu selection"
 requires-python = ">=3.7"
 keywords=["gpu"]
 dependencies = [
-	"torch>=1.13.1",
+	"Deprecated>=1.2.13"
 ]
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -17,3 +18,7 @@ classifiers = [
 
 [project.urls]
 "Repository" = "https://github.com/kolesa-team/gpu_utils"
+
+[project.optional-dependencies]
+torch = ["torch>=1.13.1"]
+nvml = ["pynvml>=11.5.0"]

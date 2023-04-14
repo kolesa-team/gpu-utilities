@@ -1,48 +1,72 @@
 # GPU-utils
 
-Подразумевается, что эта тулза используется для распределения нагрузки между видеокартами
-Она предоставляет класс `GPU` который содержит базовую информацию о видеокарте
+This is a small library to use in services, that require information about GPU.
+It can select GPUs based on available memory in GPU-intensive services.
 
-Теоретически, можно использовать несколько способов, чтобы доставать информацию о видеокартах, например через
+There are several methods to acquire GPU information. We could use, for example: 
 
+- nvml 
 - nvidia-smi
 - torch
-- напрямую обратиться к ОС
+- etc.
 
-Эта тулза не предоставляет ограничений по способу добычи информации и легко расширяется
+This library was developed with extensibility in mind, if we were to change primary method of obtaining GPU information 
 
-## Пример использования
+## Quickstart 
 
-### Установка
+### Installation
+
+All `GPUInfoObtainer` implementations provides optional dependencies for it to work.
+
+```bash
+pip install gpu_utilities[torch] # for TorchGPUInfoObtainer
+pip install gpu_info_obtainer[nvml] # for NvmlGPUInfoObtainer
+```
+
+### Usage example 
+
 ```python
-from gpu_utilities.gpu_info_obtainer import TorchGPUInfoObtainer
-from gpu_utilities.gpu_selector import GPUSelectorFactory, GPUSelectStrategy
+from gpu_utilities.obtainers.nvml import NvmlGPUInfoObtainer
+from gpu_utils.gpu_selector import GPUSelectorFactory, GPUSelectStrategy
 import torch
 
 if __name__ == "__main__":
-    gpu_info_obtainer = TorchGPUInfoObtainer()  # Выбираем использовать PyTorch как источник данных о картах
-    gpus_available = gpu_info_obtainer.gpus_available()  # Проверяем, доступны ли данные о картах (cuda_is_available)
+    gpu_info_obtainer = NvmlGPUInfoObtainer()  # Use NVML and nvidia-smi as GPU information provider
+    gpus_available = gpu_info_obtainer.gpus_available()  # Check if information about GPU is available
 
     if not gpus_available:
         raise Exception('GPUs are unavailable')
 
-    selector = GPUSelectorFactory().selector(GPUSelectStrategy.BEST_FIT)  # Создаем селектор, который придерживается стратегии BEST_FIT
+    selector = GPUSelectorFactory().selector(GPUSelectStrategy.BEST_FIT)  # Create Selector for strategy BEST_FIT
 
-    gpu = selector.select(gpu_info_obtainer.gpus(), 800 * 1024 * 1024)  # Выбираем карту из возможных, чтобы на ней поместилось 800 MB, согласно стратегии
+    gpu = selector.select(gpu_info_obtainer.gpus(), 800 * 1024 * 1024)  # Sekect GPU that is able to allocate 800 MB according to strategy
     print(f"gpu {gpu} is the best option now!")
 
-    torch.cuda.device(gpu.to_torch_device())  # Пример последующей установки в качестве текущего устройства CUDA
+    torch.cuda.device(gpu.to_torch_device())  # Example illustrating usage in torch
+
 ```
 
-### Доступные стратегии
-Обеспечить возможность использовать gpu_utils как pip пакет
-Библиотека реализует три стратегии:
+### GPU info obtaining 
 
-- BEST_FIT (пытается загрузить самую загруженную карту, на которую вмещается модель)
-- WORST_FIT (пытается загрузить самую свободную карту, на которую помещается модель)
-- RANDOM (Выбирает случайную карту, на которую помещается модель)
+There are 2 implemented methods at the moment to obtain information about GPU.
 
-Все их можно использовать через `GPUSelectorFactory`
-Enum `GPUSelectStrategy` содержит все три стратегии
+- ~~`TorchGPUInfoObtainer`~~
+    - via `PyTorch` library
+    - Deprecated since 0.2.0, since it allocates memory on GPU to be used
+- `NvmlGPUInfoObtainer`
+    - Requires [NVML](https://developer.nvidia.com/nvidia-management-library-nvml) to be installed on your machine 
+    - Might additionally require [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)
 
-> Название стратегий взято из управления памятью в ОС и распределению pages. Там BEST_FIT и WORST_FIT относятся к конкретной странице памяти, поэтому там названия отражают wasted memory -- BEST_FIT -- BEST, потому что максимально избегает "закупоривания памяти" на странице
+
+### Selection Strategies
+
+Three very basic strategies to choose GPU implemented. All strategies filter GPU's that can allocate desirable memory span.
+
+- BEST_FIT (Choose the most loaded GPU (memory-wise))
+- WORST_FIT (Choose the least loaded GPU (memory-wise))
+- RANDOM
+
+They are all accessible via `GPUSelectorFactory`.
+Enum `GPUSelectStrategy` contains all implementations.
+
+> Naming of the strategies can be seen as a bit odd. It was inspired by page allocation strategies in the OS, where "BEST_FIT" represented the most effecient use, hence the name.
