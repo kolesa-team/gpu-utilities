@@ -5,7 +5,7 @@ class GPU:
         name: str,
         max_available_memory_bytes: int,
         current_memory_utlization_bytes: int,
-        uuid: str = ""
+        uuid: str = "",
     ) -> None:
         self.cuda_id = cuda_id
         self.name = name

@@ -24,7 +24,7 @@ build:
 	docker -H $(HOST) build -t $(IMAGE_NAME) .
 
 run: build
-	docker -H $(HOST) run --rm -it $(IMAGE_NAME)
+	docker -H $(HOST) run --gpus all --rm -it $(IMAGE_NAME)
 
 run-tests: build
 	docker -H $(HOST) run --entrypoint pytest --rm -it --gpus all $(IMAGE_NAME)
