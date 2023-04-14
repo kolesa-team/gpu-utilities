@@ -1,10 +1,18 @@
 from typing import List
+from deprecated import deprecated
 import torch
 from gpu_utilities.gpu import GPU
 
 from gpu_utilities.gpu_info_obtainer import GPUInfoObtainer
 
 
+@deprecated(
+    version="0.2.0",
+    reason=(
+        "It allocates undesirable memory in GPU FrameBuffer. To avoid this"
+        " issue, use alternative GPUInfoObtainer implementations"
+    ),
+)  # noqa
 class TorchGPUInfoObtainer(GPUInfoObtainer):
     def gpus_available(self) -> bool:
         result = torch.cuda.is_available()

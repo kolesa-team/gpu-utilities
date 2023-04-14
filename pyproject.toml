@@ -8,6 +8,7 @@ description = "Small utility library for gpu selection"
 requires-python = ">=3.7"
 keywords=["gpu"]
 dependencies = [
+	"Deprecated>=1.2.13"
 ]
 
 optional-dependencies = [

@@ -11,8 +11,19 @@ It might change in the future with the release of 1.0.0 version.
 
 ### Added
 
+- `NvmlGPUInfoObtainer`
+    - Implementation of `GPUInfoObtainer`
+    - Uses underlying `NVML` and `nvidia-smi` to access GPU Info
+- [Bytes conversion utilities](./gpu_utilities/utils/bytes.py)
+    - Allows convert different file sizes to each other
+    - Uses `KiB`, `MiB`, etc. as size units
+
+
 ### Changed 
+
+- `TorchGPUInfoObtainer` moved to separate module
 
 ### Deprecated 
 
+- `TorchGPUInfoObtainer` due to memory allocation issue
 
