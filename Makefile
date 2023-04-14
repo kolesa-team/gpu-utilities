@@ -23,16 +23,16 @@ tests:
 build:
 	docker -H $(HOST) build -t $(IMAGE_NAME) .
 
-run: build
-	docker -H $(HOST) run --gpus all --rm -it $(IMAGE_NAME)
-
 run-tests: build
 	docker -H $(HOST) run --entrypoint pytest --rm -it --gpus all $(IMAGE_NAME)
 
 run-shell: build
 	docker -H $(HOST) run --entrypoint /bin/bash --rm -it --gpus all $(IMAGE_NAME)
 
-dist:
+clean-dist:
+	rm -r dist/
+
+dist: clean-dist
 	python3 -m pip install --upgrade build
 	python3 -m build
 

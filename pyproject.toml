@@ -11,11 +11,6 @@ dependencies = [
 	"Deprecated>=1.2.13"
 ]
 
-optional-dependencies = [
-	"torch>=1.13.1",
-	"pynvml>=11.5.0"
-]
-
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -23,3 +18,7 @@ classifiers = [
 
 [project.urls]
 "Repository" = "https://github.com/kolesa-team/gpu_utils"
+
+[project.optional-dependencies]
+torch = ["torch>=1.13.1"]
+nvml = ["pynvml>=11.5.0"]

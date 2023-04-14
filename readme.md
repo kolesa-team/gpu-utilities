@@ -14,6 +14,15 @@ This library was developed with extensibility in mind, if we were to change prim
 
 ## Quickstart 
 
+### Installation
+
+All `GPUInfoObtainer` implementations provides optional dependencies for it to work.
+
+```bash
+pip install gpu_utilities[torch] # for TorchGPUInfoObtainer
+pip install gpu_info_obtainer[nvml] # for NvmlGPUInfoObtainer
+```
+
 ### Usage example 
 
 ```python
