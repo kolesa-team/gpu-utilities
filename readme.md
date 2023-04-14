@@ -1,7 +1,7 @@
 # GPU-utils
 
 This is a small library to use in services, that require information about GPU.
-Primary use case in mind for developing this utility library: select GPU based on available memory in GPU-intensive services.
+It can select GPUs based on available memory in GPU-intensive services.
 
 There are several methods to acquire GPU information. We could use, for example: 
 
