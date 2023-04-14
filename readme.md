@@ -34,6 +34,7 @@ if __name__ == "__main__":
     print(f"gpu {gpu} is the best option now!")
 
     torch.cuda.device(gpu.to_torch_device())  # Example illustrating usage in torch
+
 ```
 
 ### GPU info obtaining 
