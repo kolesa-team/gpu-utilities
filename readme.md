@@ -20,7 +20,7 @@ All `GPUInfoObtainer` implementations provides optional dependencies for it to w
 
 ```bash
 pip install gpu_utilities[torch] # for TorchGPUInfoObtainer
-pip install gpu_info_obtainer[nvml] # for NvmlGPUInfoObtainer
+pip install gpu_utilities[nvml] # for NvmlGPUInfoObtainer
 ```
 
 ### Usage example 
