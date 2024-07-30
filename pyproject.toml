@@ -21,4 +21,4 @@ classifiers = [
 
 [project.optional-dependencies]
 torch = ["torch>=1.13.1"]
-nvml = ["pynvml>=11.5.0"]
+nvml = ["pynvml==11.5.0"]
