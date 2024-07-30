@@ -1,6 +1,6 @@
 [project]
 name = "gpu_utilities"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
 	{ name = "Khambar Dussaliyev", email = "dussaliyev@kolesa.kz"},
 ]
@@ -21,4 +21,4 @@ classifiers = [
 
 [project.optional-dependencies]
 torch = ["torch>=1.13.1"]
-nvml = ["pynvml>=11.5.0"]
+nvml = ["pynvml==11.5.0"]
